@@ -16,7 +16,7 @@ namespace Destino_Certo.SendEmail
                 client.Port = 587;
                 client.DeliveryMethod = SmtpDeliveryMethod.Network;
                 client.UseDefaultCredentials = false;
-                NetworkCredential credential = new NetworkCredential("beto-frs@hotmail.com", "H4ck3rSn4k32010");
+                NetworkCredential credential = new NetworkCredential("email", "senha");
                 client.EnableSsl = true;
                 client.Credentials = credential;
 
