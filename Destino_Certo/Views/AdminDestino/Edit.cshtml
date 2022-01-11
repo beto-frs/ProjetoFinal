@@ -1,0 +1,64 @@
+﻿@model Destino_Certo.Models.DestinoModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>DestinoModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Local" class="control-label"></label>
+                <input asp-for="Local" class="form-control" />
+                <span asp-validation-for="Local" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Descricao" class="control-label"></label>
+                <input asp-for="Descricao" class="form-control" />
+                <span asp-validation-for="Descricao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Incluso" class="control-label"></label>
+                <input asp-for="Incluso" class="form-control" />
+                <span asp-validation-for="Incluso" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NomeArquivo" class="control-label"></label>
+                <input asp-for="NomeArquivo" class="form-control" />
+                <span asp-validation-for="NomeArquivo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ExtensaoArquivo" class="control-label"></label>
+                <input asp-for="ExtensaoArquivo" class="form-control" />
+                <span asp-validation-for="ExtensaoArquivo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ArrayImagem" class="control-label"></label>
+                <input asp-for="ArrayImagem" class="form-control" />
+                <span asp-validation-for="ArrayImagem" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InfoArquivo" class="control-label"></label>
+                <input asp-for="InfoArquivo" class="form-control" />
+                <span asp-validation-for="InfoArquivo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

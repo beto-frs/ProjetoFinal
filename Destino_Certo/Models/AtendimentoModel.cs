@@ -12,8 +12,7 @@ namespace Destino_Certo.Models
         [Required(ErrorMessage = "O campo Assunto é obrigatório")]
         public string Assunto { get; set; }
 
-        [Required(ErrorMessage = "O campo Identificação é obrigatório")]
-        public int PessoaModelId { get; set; }
+        public int? PessoaModelId { get; set; }
         public virtual PessoaModel Pessoa { get; set; }
 
         [Required(ErrorMessage = "O campo Mensagem é obrigatório")]
@@ -26,8 +25,6 @@ namespace Destino_Certo.Models
         public DateTime? Termino { get; set; }
 
         public string? Tratativa { get; set; }
-
-        public int? AnalistaId { get; set; }
 
     }
 

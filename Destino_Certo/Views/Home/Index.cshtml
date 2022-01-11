@@ -1,2 +1,154 @@
-﻿<h1>Index</h1>
+﻿@{
+    ViewData["Index"] = "active";
+}
 
+<section id="hero">
+    <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
+
+        <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
+
+        <div class="carousel-inner" role="listbox">
+
+            <!-- Slide 1 -->
+            <div class="carousel-item active" style="background-image: url(/assets/img/slide/slide-1.jpg)">
+                <div class="carousel-container">
+                    <div class="container">
+                        <h2 class="animate__animated animate__fadeInDown">Bem Vindo ao <span>Destino Certo</span></h2>
+                        <p class="animate__animated animate__fadeInUp">Realize a viagem dos seus sonhos com condições que só a Destino Certo oferece para você! Além de benefícios exclusivos que você só encontra aqui.</p>
+                        <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Acesse</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="carousel-item" style="background-image: url(/assets/img/slide/slide-2.jpg)">
+                <div class="carousel-container">
+                    <div class="container">
+                        <h2 class="animate__animated animate__fadeInDown">Quem Somos</h2>
+                        <p class="animate__animated animate__fadeInUp">Saiba tudo sobre a história de sucesso, os prêmios conquistados e todas as novidades da maior operadora de turismo do Brasil.</p>
+                        <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Acesse</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="carousel-item" style="background-image: url(/assets/img/slide/slide-3.jpg)">
+                <div class="carousel-container">
+                    <div class="container">
+                        <h2 class="animate__animated animate__fadeInDown">Conforto e Tranquilidade</h2>
+                        <p class="animate__animated animate__fadeInUp">Faça a sua escolha, que um dos nossos especilistas entrará em contato e daremos toda a acessoria do Pré até o Pós. Onde a sua preocupação será em apenas curtir ao máximo a sua viagem.</p>
+                        <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Acesse</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
+        </a>
+
+        <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
+            <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
+        </a>
+
+    </div>
+</section><!-- End Hero -->
+<!-- ======= About Section ======= -->
+<section id="about" class="about">
+    <div class="container">
+
+        <div class="row content">
+            <div class="col-lg-6">
+                <h2>A VIAGEM DOS SEUS SONHOS... </h2>
+                <h3>COMEÇAM AQUI...</h3>
+            </div>
+            <div class="col-lg-6 pt-4 pt-lg-0">
+                <p>
+                    Realize a viagem dos seus sonhos com condições que só a Destino Certo oferece para você! Além de benefícios exclusivos que você só encontra aqui...
+                </p>
+                <ul>
+                    <li><i class="ri-check-double-line"></i> Pacote Platinum</li>
+                    <li><i class="ri-check-double-line"></i> Pacote Gold</li>
+                    <li><i class="ri-check-double-line"></i> Pacote Silver</li>
+                    <li><i class="ri-check-double-line"></i> Pacote Bronze</li>
+
+                </ul>
+                <p class="fst-italic">
+                    Nossos especialistas aguardam o seu contato. Veja abaixo alguns de nossos clientes...
+                </p>
+            </div>
+        </div>
+
+    </div>
+</section><!-- End About Section -->
+<!-- ======= Clients Section ======= -->
+<section id="clients" class="clients section-bg">
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+                <img src="~/assets/img/clients/client-1.png" class="img-fluid" alt="">
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+                <img src="~/assets/img/clients/client-2.png" class="img-fluid" alt="">
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+                <img src="~/assets/img/clients/client-3.png" class="img-fluid" alt="">
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+                <img src="~/assets/img/clients/client-4.png" class="img-fluid" alt="">
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+                <img src="~/assets/img/clients/client-5.png" class="img-fluid" alt="">
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+                <img src="~/assets/img/clients/client-6.png" class="img-fluid" alt="">
+            </div>
+
+        </div>
+
+    </div>
+</section><!-- End Clients Section -->
+<!-- ======= Services Section ======= -->
+<section id="services" class="services">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="icon-box">
+                    <i class="bi bi-check2-square"></i>
+                    <h4><a href="#">Sua viagem completa e com toda segurança</a></h4>
+                    <p>Aqui você encontra pacotes com passagem aérea, hotel, passeios e serviços que garantem uma viagem mais tranquila! São milhares de opções de pacotes nacionais e internacionais, perfeitos para você!</p>
+                </div>
+            </div>
+            <div class="col-md-6 mt-4 mt-md-0">
+                <div class="icon-box">
+                    <i class="bi bi-check2-square"></i>
+                    <h4><a href="#">Tudo que precisa saber sobre seu destino!</a></h4>
+                    <p>As melhores atrações, passeios, documentação, dicas sobre onde ficar e restaurantes. Encontre aqui o que você quer saber sobre sua próxima viagem, inspire-se e planeje suas férias com a gente.</p>
+                </div>
+            </div>
+            <div class="col-md-6 mt-4 mt-md-0">
+                <div class="icon-box">
+                    <i class="bi bi-check2-square"></i>
+                    <h4><a href="#">As melhores formas de pagamento estão aqui</a></h4>
+                    <p>Realize a viagem dos seus sonhos com condições que só a CVC oferece para você! Além de benefícios exclusivos que você pode encontrar somente aqui.</p>
+                </div>
+            </div>
+            <div class="col-md-6 mt-4 mt-md-0">
+                <div class="icon-box">
+                    <i class="bi bi-check2-square"></i>
+                    <h4><a href="#">Pacotes de viagem família</a></h4>
+                    <p>Com os pacotes da Destino Certo você e sua família terão todo o conforto e sossego para curtir cada pedacinho das férias. Comprando sua passagem aérea e hotel você aproveita tudo e ainda economiza. Vem com a gente! </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section><!-- End Services Section -->

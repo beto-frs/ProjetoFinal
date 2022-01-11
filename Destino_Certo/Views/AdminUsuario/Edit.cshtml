@@ -1,0 +1,214 @@
+﻿@model Destino_Certo.Models.PessoaModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<!-------------------------------------------------- INICIO ------------------------------------------------------------------->
+<section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+            <h2>Edição de Usuário</h2>
+            <ol>
+                <li><a asp-area="" asp-controller="AdminUsuario" asp-action="Index">Home</a></li>
+                <li>Cadastro</li>
+            </ol>
+        </div>
+
+    </div>
+</section><!-- End Breadcrumbs -->
+<!-- ======= Contact Section ======= -->
+<section id="contact" class="contact">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 mt-5 mt-lg-0">
+
+                <form asp-action="Edit" class="row g-3">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-md-9">
+                <label asp-for="Nome" class="control-label"></label>
+                <input asp-for="Nome" class="form-control" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+            <div class="col-md-3">
+                <label asp-for="Nascimento" class="control-label"></label>
+                <input asp-for="Nascimento" class="form-control" type="date" />
+                <span asp-validation-for="Nascimento" class="text-danger"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="Login" class="control-label"></label>
+                <input asp-for="Login" class="form-control" />
+                <span asp-validation-for="Login" class="text-danger"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="Senha" class="control-label"></label>
+                <input asp-for="Senha" class="form-control" id="Senha"/>
+                <span asp-validation-for="Senha" class="text-danger"></span>
+            </div>
+            <div class="col-md-1">
+                <label asp-for="Ddd" class="control-label"></label>
+                <input asp-for="Ddd" class="form-control" id="ddd" />
+                <span asp-validation-for="Ddd" class="text-danger" onkeyup="mascara('(##)',this,event,true)"></span>
+            </div>
+            <div class="col-md-3">
+                <label asp-for="Telefone" class="control-label"></label>
+                <input asp-for="Telefone" class="form-control" />
+                <span asp-validation-for="Telefone" class="text-danger" onkeyup="mascara('#####-####',this,event,true)"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" type="email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="col-md-2">
+                <label asp-for="Cep" class="control-label"></label>
+                <input asp-for="Cep" class="form-control" id="cep" onblur="pesquisacep(this.value)"/>
+                <span asp-validation-for="Cep" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Logradouro" class="control-label"></label>
+                <input asp-for="Logradouro" class="form-control" id="rua" />
+                <span asp-validation-for="Logradouro" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Complemento" class="control-label"></label>
+                <input asp-for="Complemento" class="form-control" id="complemento" />
+                <span asp-validation-for="Complemento" class="text-danger"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="Bairro" class="control-label"></label>
+                <input asp-for="Bairro" class="form-control" id="bairro" />
+                <span asp-validation-for="Bairro" class="text-danger"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="Cidade" class="control-label"></label>
+                <input asp-for="Cidade" class="form-control" id="cidade" />
+                <span asp-validation-for="Cidade" class="text-danger"></span>
+            </div>
+            <div class="col-md-1">
+                <label asp-for="Uf" class="control-label"></label>
+                <input asp-for="Uf" class="form-control" id="uf"/>
+                <span asp-validation-for="Uf" class="text-danger"></span>
+            </div>
+            <div class="col-md-3">
+                    <label class="control-label">Nível de Usuário</label>
+                    <select asp-for="TipoConta" class="form-control" name="TipoConta">
+                        <option value="Analista" selected>Analista</option>
+                        <option value="Admin">Administrador</option>
+                    </select>
+                    <span asp-validation-for="TipoConta" class="text-danger"></span>
+                </div>
+                <hr />
+                    <div class="col-sm-8">
+                    <a asp-action="Index" class="btn btn-secondary">Voltar</a>        
+                    <input type="reset" value="Limpar" class="btn btn-danger" />        
+                    <input type="submit" value="Atualizar" class="btn btn-success" />        
+                </div>
+                
+        </form>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+<script>
+   
+
+    function limpa_formulário_cep() {
+             //Limpa valores do formulário de cep.
+             document.getElementById('rua').value=("");
+             document.getElementById('bairro').value=("");
+             document.getElementById('cidade').value=("");
+             document.getElementById('uf').value=("");
+             document.getElementById('complemento').value=("");
+             document.getElementById('ddd').value=("");
+     }
+
+     function meu_callback(conteudo) {
+         if (!("erro" in conteudo)) {
+             //Atualiza os campos com os valores.
+             document.getElementById('rua').value=(conteudo.logradouro);
+             document.getElementById('bairro').value=(conteudo.bairro);
+             document.getElementById('cidade').value=(conteudo.localidade);
+             document.getElementById('uf').value=(conteudo.uf);
+             document.getElementById('complemento').value=(conteudo.complemento);
+             document.getElementById('ddd').value=(conteudo.ddd);
+         } //end if.
+         else {
+             //CEP não Encontrado.
+             limpa_formulário_cep();
+             alert("CEP não encontrado.");
+         }
+     }
+
+     function pesquisacep(valor) {
+        
+         //Nova variável "cep" somente com dígitos.
+         var cep = valor.replace(/\D/g, '');
+
+         //Verifica se campo cep possui valor informado.
+         if (cep != "") {
+
+             //Expressão regular para validar o CEP.
+             var validacep = /^[0-9]{8}$/;
+
+             //Valida o formato do CEP.
+             if(validacep.test(cep)) {
+                 //Preenche os campos com "..." enquanto consulta webservice.
+                 document.getElementById('rua').value="...";
+                 document.getElementById('bairro').value="...";
+                 document.getElementById('cidade').value="...";
+                 document.getElementById('uf').value="...";
+                 document.getElementById('ddd').value="...";
+                 document.getElementById('complemento').value="...";
+                 
+                 //Cria um elemento javascript.
+                 var script = document.createElement('script');
+
+                 //Sincroniza com o callback.
+                 script.src = 'https://viacep.com.br/ws/'+ cep + '/json/?callback=meu_callback';
+
+                 //Insere script no documento e carrega o conteúdo.
+                 document.body.appendChild(script);
+
+             } //end if.
+             else {
+                 //cep é inválido.
+                 limpa_formulário_cep();
+                 alert("Formato de CEP inválido.");
+             }
+         } //end if.
+         else {
+             //cep sem valor, limpa formulário.
+             limpa_formulário_cep();
+         }
+     };
+
+
+         function ConfirmaSenha() {
+         var senha = document.getElementById('Senha').value;
+         var Confirma = document.getElementById('ConfirmaSenha').value;
+
+         if (senha != Confirma) {
+             alert('As senhas não conferem...');
+             var senha = document.getElementById('Senha').value = ("");
+             var Confirma = document.getElementById('ConfirmaSenha').value = ("");
+             senha.focus();
+         }
+
+     }
+
+
+</script>
+
+}

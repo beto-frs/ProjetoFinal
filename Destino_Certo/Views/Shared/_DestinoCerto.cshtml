@@ -1,0 +1,200 @@
+﻿@using Microsoft.AspNetCore.Http;
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>@ViewData["Title"] Destino Certo</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="~/assets/img/favicon.png" rel="icon">
+    <link href="~/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="~/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+    <link href="~/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="~/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="~/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="~/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="~/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="~/assets/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top d-flex align-items-center">
+        <div class="container d-flex align-items-center">
+
+            <h1 class="logo me-auto"><a asp-area="" asp-controller="Home" asp-action="Index">Destino Certo</a></h1>
+            <nav id="navbar" class="navbar">
+                <ul>
+                    
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index" class="@ViewData["Index"]">Home</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="About" class="@ViewData["Sobre"]">Sobre</a></li>
+                    <li><a asp-area="" asp-controller="Destino" asp-action="Locais" class="@ViewData["Destinos"]">Destinos</a></li>
+                    <li class="dropdown">
+                        <a href="#"><span>Admin</span> <i class="bi bi-chevron-down"></i></a>
+                        <ul>
+                            <li><a asp-area="" asp-controller="AdminUsuario" asp-action="Gerenciar" class="@ViewData["Locais"]">Dashboard</a>
+                            <li><a asp-area="" asp-controller="AdminDestino" asp-action="Index" class="@ViewData["Admin"]">Admin</a></li>
+                            <li><a asp-area="" asp-controller="AdminUsuario" asp-action="Index" class="@ViewData["Usuarios"]">Usuários</a></li>
+                            <li><a asp-area="" asp-controller="AdminAtendimento" asp-action="Index" class="@ViewData["Atendimentos"]">Atendimentos</a></li>
+                            <li><a asp-area="" asp-controller="AdminDestino" asp-action="Index" class="@ViewData["Pacotes"]">Pacotes</a></li>
+                        </ul>
+                    </li>
+
+                    <!--<li><a href="services.html">Services</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="blog.html">Blog</a></li>-->
+                    @if (Context.Session.GetString("Nome") == null)
+                            {
+                        <li><a asp-area="" asp-controller="Pessoa" asp-action="Create" class="@ViewData["Cadastro"]">Cadastro</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Login" class="@ViewData["Cadastro"]">Login</a></li>
+                            }
+                            else
+                            {
+                        <img src="/img/login/login.png" alt="Avatar Logo" style="width:40px; margin-left:40px;" class="rounded-pill">
+                        <li class="dropdown">
+                            <a href="#"><span>@Context.Session.GetString("Nome")</span> <i class="bi bi-chevron-down"></i></a>
+
+                            <ul>@if (Context.Session.GetString("TipoConta")=="Admin" || Context.Session.GetString("TipoConta")=="Analista" )
+                                {
+                                    <li><a asp-area="" asp-controller="AdminUsuario" asp-action="Edit" asp-route-id=@Context.Session.GetInt32("Id") class="@ViewData["Index"]">Dados Cadastrais</a></li>
+                                }
+                                        else
+                                        {
+                                        <li><a asp-area="" asp-controller="Pessoa" asp-action="Edit" asp-route-id=@Context.Session.GetInt32("Id") class="@ViewData["Index"]">Dados Cadastrais</a></li>
+                                            
+                                        }
+                                <li><a href="team.html">Atendimentos</a></li>
+                                <li><a href="team.html">Reservas</a></li>
+                                <li><a asp-area="" asp-controller="Home" asp-action="Logout" class="@ViewData["Logout"]">Logout</a></li>
+                                <!--
+                                <li class="dropdown">
+                                    <a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
+                                    <ul>
+                                        <li><a href="#">Deep Drop Down 1</a></li>
+                                        <li><a href="#">Deep Drop Down 2</a></li>
+                                        <li><a href="#">Deep Drop Down 3</a></li>
+                                        <li><a href="#">Deep Drop Down 4</a></li>
+                                        <li><a href="#">Deep Drop Down 5</a></li>
+                                    </ul>
+                                </li>-->
+                        </ul>
+                        </li>
+                            }
+
+
+
+
+
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav><!-- .navbar -->
+        </div>
+    </header><!-- End Header -->
+    <main id="main">
+        @RenderBody()
+    </main>
+    <!-- End #main -->
+    <!-- ======= Footer ======= -->
+    <footer id="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-info">
+                            <h3>Destino Certo</h3>
+                            <p>
+                                CENU - Centro Empresarial Nações Unidas <br>
+                                Av. das Nações Unidas, 12901<br><br>
+                                <strong>Tel:</strong>11 5563-9874<br>
+                                <strong>Email:</strong> faleconosco@destinocerto.com.br<br>
+                            </p>
+                            <div class="social-links mt-3">
+                                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                                <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2 col-md-6 footer-links">
+                        <h4>Links Úteis</h4>
+                        <ul>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 footer-links">
+                        <h4>Nossos Serviços</h4>
+                        <ul>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 footer-newsletter">
+                        <h4>Novidades</h4>
+                        <p>Caso deseja receber nossas Newsletters e outras informações, clique no botão abaixo e faça seu cadastro.</p>
+                        <a class="btn btn-danger" asp-area="" asp-controller="Home" asp-action="Index" role="button">Cadastro</a>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="copyright">
+                &copy; Copyright <strong><span>Destino Certo</span></strong>. All Rights Reserved
+            </div>
+            <div class="credits">
+                Developed by <a href="https://www.linkedin.com/in/fcorobertodasilva/">Roberto Silva</a>
+            </div>
+        </div>
+    </footer><!-- End Footer -->
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="~/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="~/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="~/assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="~/assets/vendor/waypoints/noframework.waypoints.js"></script>
+    <script src="~/assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="~/assets/js/main.js"></script>
+
+    <script src="~/js/site.js" asp-append-version="false"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

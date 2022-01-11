@@ -41,26 +41,26 @@ namespace Destino_Certo.Models.ADONET
             }
         }
 
-        public UsuarioModel Login()
+        public Autenticacao Login(string login, string senha)
         {
-            string Login = "beto-admin";
-            string Senha = "5Vy5vpF35RUSEc5OAJS4/Q==";
-
             AbrirConexao();
-            string sqlLogin = "SELECT * FROM Usuarios WHERE login = @login AND senha = @senha" ;
+            string sqlLogin = "SELECT * FROM Pessoas WHERE login = @login AND senha = @senha" ;
             SqlCommand command = new SqlCommand(sqlLogin, cn);
-            command.Parameters.AddWithValue("@login", Login);
-            command.Parameters.AddWithValue("@senha", Senha);
+            command.Parameters.AddWithValue("@login", login);
+            command.Parameters.AddWithValue("@senha", senha);
 
             SqlDataReader dados = command.ExecuteReader();
 
-            UsuarioModel us = new();
+            Autenticacao us = new();
 
             if (dados.Read())
             {
                 us.Id = dados.GetInt32("Id");
+                us.Nome = dados.GetString("Nome");
                 us.Login = dados.GetString("Login");
                 us.Senha = dados.GetString("Senha");
+                us.Email = dados.GetString("Email");
+                us.Telefone = dados.GetString("Telefone");
                 us.TipoConta = dados.GetString("TipoConta");
                 
             }

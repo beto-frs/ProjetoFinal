@@ -1,6 +1,4 @@
 ﻿using Destino_Certo.Crypto;
-using Destino_Certo.Data.Dtos.Usuario;
-using Destino_Certo.Data.Dtos.Usuario.User;
 using Destino_Certo.Models;
 using System.ComponentModel.DataAnnotations;
 
@@ -42,7 +40,15 @@ namespace Destino_Certo.Data.Dtos.Pessoa
         public string Uf { get; set; }
         public DateTime? Atualizacao { get; set; } = DateTime.Now;
 
-        public UpdateUserDto Usuario { get; set; }
+        public string EnvioMarketing { get; set; }
+
+        [Required(ErrorMessage = "O campo Login é obrigatório")]
+        public string Login { get; set; }
+
+        [Required(ErrorMessage = "O campo Senha é obrigatório")]
+        public string Senha { get; set; }
+
+        public string TipoConta { get; set; }
 
     }
 }

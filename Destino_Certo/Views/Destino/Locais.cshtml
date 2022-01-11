@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Destino_Certo.Models.DestinoModel>
+
+@{
+    ViewData["Destinos"] = "active";
+    List<string> imagens = new List<string>();
+    foreach (var items in Model)
+    {
+        string Base64 = Convert.ToBase64String(items.ArrayImagem);
+        string img = String.Format("data:image/jpeg;base64,{0}", Base64);
+        imagens.Add(img);
+    }
+}
+
+<section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+            <h2>Destinos</h2>
+            <ol>
+                <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                <li>Destinos</li>
+            </ol>
+        </div>
+
+    </div>
+</section><!-- End Breadcrumbs -->
+
+
+
+<section id="portfolio" class="portfolio">
+    <section class="container">
+        <div class="row portfolio-container">
+            <!------------------ INICIO LOOPING ---------------------------------->
+             @foreach (var item in Model)
+            {
+
+            <div class="col-lg-4 col-md-6 portfolio-item">
+                <div class="portfolio-wrap">
+                    <img src="@Html.DisplayFor(modelItem => item.ExtensaoArquivo)" class="img-fluid" alt="">
+                    <div class="portfolio-info">
+                        <h4>@Html.DisplayFor(modelItem => item.Local)</h4>
+                        <!-- <p>@Html.DisplayFor(modelItem => item.Local)</p>-->
+                        <div class="portfolio-links">
+                            <a asp-action="Details" asp-route-id="@item?.Id" data-gallery="portfolioGallery" class="portfolio-lightbox"><i class="bx bx-plus" style="font-size: 18px" title="@Html.DisplayFor(modelItem => item.Local)">Detalhes</i></a>
+                            <a asp-action="Details" asp-route-id="@item?.Id" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+             }
+
+            <!------------------ FINAL LOOPING ---------------------------------->
+        </div>
+
+    </section>
+</section>
+
+
+
+
+

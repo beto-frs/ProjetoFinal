@@ -1,48 +1,100 @@
 ﻿@model Destino_Certo.Data.Dtos.Destino.CreateDestinoDto
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
 
-<h1>Create</h1>
 
-<h4>DestinoModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Nome" class="control-label"></label>
-                <input asp-for="Nome" class="form-control" />
-                <span asp-validation-for="Nome" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Imagem" class="control-label"></label>
-                <input asp-for="Imagem" class="form-control" />
-                <span asp-validation-for="Imagem" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Descricao" class="control-label"></label>
-                <input asp-for="Descricao" class="form-control" />
-                <span asp-validation-for="Descricao" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Incluso" class="control-label"></label>
-                <input asp-for="Incluso" class="form-control" />
-                <span asp-validation-for="Incluso" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+<!-------------------------------------------------- INICIO ------------------------------------------------------------------->
+<section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+            <h2>Destinos</h2>
+            <ol>
+                <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                <li>Destinos</li>
+            </ol>
+        </div>
+
     </div>
-</div>
+</section><!-- End Breadcrumbs -->
+<!-- ======= Contact Section ======= -->
+<section id="contact" class="contact">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 mt-5 mt-lg-0">
 
+                <form asp-action="Create" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="FileUpload.FormFile"></label>
+                        <input asp-for="FileUpload.FormFile" type="file" name="formFile" id="formFile">
+                        <span asp-validation-for="FileUpload.FormFile"></span>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label asp-for="Local" class="control-label"></label>
+                        <input asp-for="Local" class="form-control" />
+                        <span asp-validation-for="Local" class="text-danger"></span>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label asp-for="Descricao" class="control-label"></label>
+                        <textarea asp-for="Descricao" class="form-control" rows="6" cols="40" wrap="hard" required></textarea>
+                        <span asp-validation-for="Descricao" class="text-danger"></span>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label asp-for="Incluso" class="control-label"></label>
+                        <textarea asp-for="Incluso" class="form-control" rows="6" cols="40" wrap="hard" required></textarea>
+                        <span asp-validation-for="Incluso" class="text-danger"></span>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <input type="submit" value="Cadastrar" class="btn btn-outline-success" />
+                        <a asp-action="Index" class="btn btn-outline-danger" >Voltar</a>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-lg-6 mt-5 mt-lg-0">
+                <div id="divImage"></div>
+            </div>
+
+        </div>
+    </div>
+</section>
 <div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
 }
+<script>
+    $("#formFile").change(function () {
+        if (typeof (FileReader) != "undefined") {
+            var dvPreview = $("#divImage");
+            dvPreview.html("");
+            $($(this)[0].files).each(function () {
+                var file = $(this);
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        var img = $("<img />");
+                        img.attr("style", "width: 450px; height:300px; padding: 10px");
+                        img.attr("src", e.target.result);
+                        dvPreview.append(img);
+                    }
+                    reader.readAsDataURL(file[0]);
+            });
+        } else {
+            alert("This browser does not support HTML5 FileReader.");
+        }
+    });
+</script>
+
+    }

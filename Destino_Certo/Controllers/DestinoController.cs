@@ -1,5 +1,6 @@
 ﻿#nullable disable
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,22 +16,47 @@ namespace Destino_Certo.Controllers
 {
     public class DestinoController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly Context _context;
         private readonly IMapper _mapper;
 
-        public DestinoController(AppDbContext context, IMapper mapper)
+        public DestinoController(Context context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
+        public async Task<IActionResult> Locais()
+        {
+            var destinos = await _context.Destinos.ToListAsync();
+            List<string> vs = new List<string>();
+            foreach (var item in destinos)
+            {
+                string Base64 = Convert.ToBase64String(item.ArrayImagem);
+                string img = String.Format("data:image/jpeg;base64,{0}", Base64);
+                item.ExtensaoArquivo = img;
+            }
+            return View(destinos);
+
+
+
+            //return View(await _context.Destinos.ToListAsync());
+        }
+
         // GET: Destino
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Destinos.ToListAsync());
+            var destinos = await _context.Destinos.ToListAsync();
+            List<string> vs = new List<string>();
+            foreach (var item in destinos)
+            {
+                string Base64 = Convert.ToBase64String(item.ArrayImagem);
+                string img = String.Format("data:image/jpeg;base64,{0}", Base64);
+                item.ExtensaoArquivo = img;
+            }
+            return View(destinos);
+            
         }
 
-        // GET: Destino/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -40,6 +66,10 @@ namespace Destino_Certo.Controllers
 
             var destinoModel = await _context.Destinos
                 .FirstOrDefaultAsync(m => m.Id == id);
+                string Base64 = Convert.ToBase64String(destinoModel.ArrayImagem);
+                string img = String.Format("data:image/jpeg;base64,{0}", Base64);
+                destinoModel.ExtensaoArquivo = img;
+
             if (destinoModel == null)
             {
                 return NotFound();
@@ -48,23 +78,36 @@ namespace Destino_Certo.Controllers
             return View(destinoModel);
         }
 
+        // GET: Destino/Create
         public IActionResult Create()
         {
             return View();
         }
 
+        // POST: Destino/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CreateDestinoDto destinoDto)
+        public async Task<IActionResult> Create([Bind("Id,Local,Imagem,Descricao,Incluso")] CreateDestinoDto destinoModel, IFormFile formFile)
         {
-            if (ModelState.IsValid)
-            {
-                DestinoModel destino = _mapper.Map<DestinoModel>(destinoDto);
-                _context.Add(destino);
+            
+            var memoryStream = new MemoryStream();
+            await formFile.CopyToAsync(memoryStream);
+
+            var file = destinoModel.ArrayImagem;
+            var Content = memoryStream.ToArray();
+            destinoModel.NomeArquivo = formFile.FileName;
+            destinoModel.ExtensaoArquivo = formFile.ContentType;
+            destinoModel.InfoArquivo = $"{Convert.ToString(formFile.Length)} bytes";
+            destinoModel.ArrayImagem = Content;
+            //string Image = Convert.ToBase64String(Content);
+            DestinoModel destinoM = _mapper.Map<DestinoModel>(destinoModel);
+
+            
+            _context.Add(destinoM);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
-            return View(destinoDto);
         }
 
         // GET: Destino/Edit/5
@@ -88,7 +131,7 @@ namespace Destino_Certo.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Imagem,Descricao")] DestinoModel destinoModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Local,Imagem,Descricao,Incluso")] DestinoModel destinoModel)
         {
             if (id != destinoModel.Id)
             {
@@ -151,5 +194,6 @@ namespace Destino_Certo.Controllers
         {
             return _context.Destinos.Any(e => e.Id == id);
         }
+
     }
 }

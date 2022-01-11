@@ -41,13 +41,17 @@ namespace Destino_Certo.Models
         [Required(ErrorMessage = "O campo Uf é obrigatório")]
         public string Uf { get; set; }
 
-        public DateTime Cadastro { get; set; }
+        public DateTime? Cadastro { get; set; }
 
         public DateTime? Atualizacao { get; set; }
 
-        public int UsuarioId { get; set; }
+        [Required(ErrorMessage = "O campo Login é obrigatório")]
+        public string Login { get; set; }
 
-        public virtual UsuarioModel Usuario { get; set; }
+        [Required(ErrorMessage = "O campo Senha é obrigatório")]
+        public string Senha { get; set; }
+
+        public string TipoConta { get; set; }
 
         public string? EnvioMarketing { get; set; }
 

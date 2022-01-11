@@ -4,16 +4,17 @@ using System.Diagnostics;
 using Destino_Certo.SendEmail;
 using Destino_Certo.Data;
 using Destino_Certo.Models.ADONET;
+using Destino_Certo.Crypto;
 
 namespace Destino_Certo.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ISendEmail _sendEmail;
-        private readonly IAuth _auth;
+        ISendEmail _sendEmail;
+        IAuth _auth;
 
-        public HomeController(ILogger<HomeController> logger, ISendEmail sendEmail, IAuth auth)
+        public HomeController(ILogger<HomeController> logger, ISendEmail sendEmail, IAuth auth, ICrypto crypto)
         {
             _logger = logger;
             _sendEmail = sendEmail;
@@ -45,27 +46,45 @@ namespace Destino_Certo.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login()
+        public ActionResult Login()
         {
-            var usuario = _auth.Login();
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(string login, string senha)
+        {
+
+            var usuario = _auth.Login(login,senha);
             if (usuario != null)
             {
+                string[] PrimeiroNome = usuario.Nome.Split(" ");
+                string PNome = PrimeiroNome[0];
+                HttpContext.Session.SetString("Nome", PNome);
                 HttpContext.Session.SetInt32("Id", usuario.Id);
+                HttpContext.Session.SetString("NomeCompleto", usuario.Nome);
                 HttpContext.Session.SetString("Login", usuario.Login);
                 HttpContext.Session.SetString("Senha", usuario.Senha);
+                HttpContext.Session.SetString("Email", usuario.Email);
+                HttpContext.Session.SetString("Telefone", usuario.Telefone);
                 HttpContext.Session.SetString("TipoConta", usuario.TipoConta);
                 return RedirectToAction(nameof(Index));
             }
             return View("Index");
         }
 
-
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
-            return View("Index");
+            Autenticacao us = new Autenticacao();
+            return RedirectToAction("Index");
         }
 
+        public ActionResult About()
+        {
+            return View();
+        }
         
     }
 }

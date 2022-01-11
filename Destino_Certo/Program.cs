@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var ConnectionStrings = builder.Configuration.GetConnectionString("Connection");
-builder.Services.AddDbContext<AppDbContext>(opts =>
+builder.Services.AddDbContext<Context>(opts =>
 {
    opts
     .UseLazyLoadingProxies().UseSqlServer(ConnectionStrings);
@@ -21,6 +21,7 @@ builder.Services.AddScoped<ICrypto, Crypto>();
 builder.Services.AddScoped<IAuth, Auth>();
 
 
+
 builder
     .Services.Configure<CookiePolicyOptions>(options =>
     {
@@ -28,7 +29,7 @@ builder
     options.MinimumSameSitePolicy = SameSiteMode.None;
 });
 
-builder.Services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest);
+builder.Services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 builder.Services.AddMemoryCache();
 builder.Services.AddSession(options => options.IdleTimeout = TimeSpan.FromMinutes(30));
 builder.Services.AddControllersWithViews();
@@ -52,6 +53,8 @@ app.UseSession();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

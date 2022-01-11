@@ -17,22 +17,22 @@ namespace Destino_Certo.Controllers
 {
     public class PessoaController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly Context _context;
         private readonly IMapper _mapper;
-        private readonly ICrypto _crypto;
 
-        public PessoaController(AppDbContext context, IMapper mapper, ICrypto crypto)
+        public PessoaController(Context context, IMapper mapper, ICrypto crypto)
         {
             _context = context;
             _mapper = mapper;
-            _crypto = crypto;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Pessoas.ToListAsync());
         }
 
+        [HttpGet]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -61,14 +61,24 @@ namespace Destino_Certo.Controllers
             if (ModelState.IsValid)
             {
                 PessoaModel pessoa = _mapper.Map<PessoaModel>(pessoaDto);
-                pessoa.Usuario.Senha = _crypto.Encrypt(pessoaDto.Usuario.Senha);
                 _context.Add(pessoa);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                string[] PrimeiroNome = pessoa.Nome.Split(" ");
+                string PNome = PrimeiroNome[0];
+                HttpContext.Session.SetString("Nome", PNome);
+                HttpContext.Session.SetString("NomeCompleto", pessoa.Nome);
+                HttpContext.Session.SetString("Login", pessoa.Login);
+                HttpContext.Session.SetString("Senha", pessoa.Senha);
+                HttpContext.Session.SetString("Email", pessoa.Email);
+                HttpContext.Session.SetString("Telefone", pessoa.Telefone);
+                HttpContext.Session.SetString("TipoConta", pessoa.TipoConta);
+                ViewBag.Mensagem = "Cadastrado com sucesso";
+                return RedirectToAction(nameof(Index),"Home");
             }
+            ;
             return View(pessoaDto);
         }
-
+        [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
 
@@ -78,7 +88,6 @@ namespace Destino_Certo.Controllers
             }
 
             var pessoaModel = await _context.Pessoas.FindAsync(id);
-            pessoaModel.Usuario.Senha = _crypto.Decrypt(pessoaModel.Usuario.Senha);
             if (pessoaModel == null)
             {
                 return NotFound();
@@ -98,20 +107,22 @@ namespace Destino_Certo.Controllers
                 try
                 {
                     _mapper.Map(pessoaDto, pessoa);
-                    pessoa.Usuario.Senha = _crypto.Encrypt(pessoaDto.Usuario.Senha);
                     _context.Update(pessoa);
                     await _context.SaveChangesAsync();
 
                 }
                 catch
                 {
-                    
+
                 }
-                return RedirectToAction(nameof(Index));
+                ViewBag.Mensagem = "Dados Atualizados com sucesso";
+                return View();
+                //return RedirectToAction(nameof(Index),"Home");
             }
             return View(pessoaDto);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -134,9 +145,7 @@ namespace Destino_Certo.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var pessoaModel = await _context.Pessoas.FindAsync(id);
-            var usuarioModel = await _context.Usuarios.FindAsync(pessoaModel.UsuarioId);
             _context.Pessoas.Remove(pessoaModel);
-            _context.Usuarios.Remove(usuarioModel);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

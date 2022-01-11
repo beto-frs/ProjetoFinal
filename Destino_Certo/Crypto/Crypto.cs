@@ -1,69 +1,35 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace Destino_Certo.Crypto
 {
     public class Crypto: ICrypto
     {
-        private const string PublicKey = "12345678";
-        private const string SecretKey = "87654321";
+        
 
-        public string Encrypt(string Senha)
+        public string Encrypt(string password)
         {
-            try
-            {
-                string ToReturn = "";
-                byte[] secretkeyByte = { };
-                secretkeyByte = Encoding.UTF8.GetBytes(SecretKey);
-                byte[] publickeybyte = { };
-                publickeybyte = Encoding.UTF8.GetBytes(PublicKey);
-                MemoryStream ms = null;
-                CryptoStream cs = null;
-                byte[] inputbyteArray = Encoding.UTF8.GetBytes(Senha);
-                using (DESCryptoServiceProvider des = new DESCryptoServiceProvider())
-                {
-                    ms = new MemoryStream();
-                    cs = new CryptoStream(ms, des.CreateEncryptor(publickeybyte, secretkeyByte), CryptoStreamMode.Write);
-                    cs.Write(inputbyteArray, 0, inputbyteArray.Length);
-                    cs.FlushFinalBlock();
-                    ToReturn = Convert.ToBase64String(ms.ToArray());
-                }
-                return ToReturn;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message, ex.InnerException);
-            }
+            if (password == null) throw new ArgumentNullException("plainText");
+
+            //encrypt data
+            var data = Encoding.Unicode.GetBytes(password);
+            byte[] encrypted = ProtectedData.Protect(data, null, DataProtectionScope.CurrentUser);
+
+            //return as base64 string
+            return Convert.ToBase64String(encrypted);
         }
 
-        public string Decrypt(string Senha)
+        public string Decrypt(string password)
         {
-            try
-            {
-                string ToReturn = "";
-                byte[] privatekeyByte = { };
-                privatekeyByte = Encoding.UTF8.GetBytes(SecretKey);
-                byte[] publickeybyte = { };
-                publickeybyte = Encoding.UTF8.GetBytes(PublicKey);
-                MemoryStream ms = null;
-                CryptoStream cs = null;
-                byte[] inputbyteArray = new byte[Senha.Replace(" ", "+").Length];
-                inputbyteArray = Convert.FromBase64String(Senha.Replace(" ", "+"));
-                using (DESCryptoServiceProvider des = new DESCryptoServiceProvider())
-                {
-                    ms = new MemoryStream();
-                    cs = new CryptoStream(ms, des.CreateDecryptor(publickeybyte, privatekeyByte), CryptoStreamMode.Write);
-                    cs.Write(inputbyteArray, 0, inputbyteArray.Length);
-                    cs.FlushFinalBlock();
-                    Encoding encoding = Encoding.UTF8;
-                    ToReturn = encoding.GetString(ms.ToArray());
-                }
-                return ToReturn;
-            }
-            catch (Exception ae)
-            {
-                throw new Exception(ae.Message, ae.InnerException);
-            }
+            if (password == null) throw new ArgumentNullException("cipher");
+
+            //parse base64 string
+            byte[] data = Convert.FromBase64String(password);
+
+            //decrypt data
+            byte[] decrypted = ProtectedData.Unprotect(data, null, DataProtectionScope.CurrentUser);
+            return Encoding.Unicode.GetString(decrypted);
         }
     }
 }

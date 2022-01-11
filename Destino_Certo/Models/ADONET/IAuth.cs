@@ -9,7 +9,7 @@ namespace Destino_Certo.Models.ADONET
 
         void FecharConexao();
 
-        public UsuarioModel Login();
+        public Autenticacao Login(string login, string senha);
 
 
     }
