@@ -1,0 +1,53 @@
+﻿@model Destino_Certo.Models.PessoaModel
+
+@{
+    ViewData["Title"] = "Details";
+    string dataNascimento = Model.Nascimento.ToString("d");
+}
+<section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+            <h2>Detalhes</h2>
+            <ol>
+                <li><a asp-area="" asp-controller="Admin" asp-action="Index">Home</a></li>
+                <li>Detalhes</li>
+            </ol>
+        </div>
+
+    </div>
+</section>
+<section id="testimonials" class="testimonials">
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-lg-6">
+                <div class="testimonial-item">
+
+                    <h3>@Html.DisplayFor(model => model.Nome)</h3>
+                    <h4>@Html.DisplayFor(model => model.TipoConta)</h4>
+                    <p>
+                        <strong>@Html.DisplayNameFor(model => model.Nascimento):</strong> @dataNascimento<br />
+                        <strong>@Html.DisplayNameFor(model => model.Telefone):</strong> @Html.DisplayFor(model => model.Ddd) - @Html.DisplayFor(model => model.Telefone)<br />
+                        <strong>@Html.DisplayNameFor(model => model.Email):</strong>  @Html.DisplayFor(model => model.Email)<br />
+                        <strong>@Html.DisplayNameFor(model => model.Cep):</strong>  @Html.DisplayFor(model => model.Cep)<br />
+                        <strong>@Html.DisplayNameFor(model => model.Logradouro):</strong>  @Html.DisplayFor(model => model.Logradouro)<br />
+                        <strong>@Html.DisplayNameFor(model => model.Bairro):</strong>  @Html.DisplayFor(model => model.Bairro)<br />
+                        <strong>@Html.DisplayNameFor(model => model.Cidade):</strong>  @Html.DisplayFor(model => model.Cidade)<br />
+                        <strong>@Html.DisplayNameFor(model => model.Uf):</strong>  @Html.DisplayFor(model => model.Uf)<br />
+                        <strong>@Html.DisplayNameFor(model => model.Login):</strong>  @Html.DisplayFor(model => model.Login)<br />
+                        <hr />
+                        <br />
+                        <div class=col>
+                            <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-outline-warning">Editar</a>
+                            <a asp-action="Index" class="btn btn-outline-secondary">Voltar</a>
+                        </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+

@@ -45,18 +45,18 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index" class="@ViewData["Index"]">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About" class="@ViewData["Sobre"]">Sobre</a></li>
                     <li><a asp-area="" asp-controller="Destino" asp-action="Locais" class="@ViewData["Destinos"]">Destinos</a></li>
-                    <li><a asp-area="" asp-controller="Destino" asp-action="Create" class="@ViewData["IncluirD"]">Incluir Destinos</a></li>
-                    <li class="dropdown">
+                    @if (Context.Session.GetString("Nome") == "Admin")
+                    {
+                      <li class="dropdown">
                         <a href="#"><span>Admin</span> <i class="bi bi-chevron-down"></i></a>
                         <ul>
-                            <li><a asp-area="" asp-controller="AdminUsuario" asp-action="Gerenciar" class="@ViewData["Locais"]">Dashboard</a>
-                            <li><a asp-area="" asp-controller="AdminDestino" asp-action="Index" class="@ViewData["Admin"]">Admin</a></li>
-                            <li><a asp-area="" asp-controller="AdminUsuario" asp-action="Index" class="@ViewData["Usuarios"]">Usuários</a></li>
-                            <li><a asp-area="" asp-controller="AdminAtendimento" asp-action="Index" class="@ViewData["Atendimentos"]">Atendimentos</a></li>
-                            <li><a asp-area="" asp-controller="AdminDestino" asp-action="Index" class="@ViewData["Pacotes"]">Pacotes</a></li>
+                            <li><a asp-area="" asp-controller="Admin" asp-action="Gerenciar" class="@ViewData["Locais"]">Dashboard</a>
+                            <li><a asp-area="" asp-controller="Admin" asp-action="Index" class="@ViewData["Admin"]">Admin</a></li>
                             <li><a asp-area="" asp-controller="Home" asp-action="Previsao" class="@ViewData["Pacotes"]">Previsao</a></li>
                         </ul>
-                    </li>
+                    </li>  
+                    }
+                    
 
                     <!--<li><a href="services.html">Services</a></li>
                     <li><a href="portfolio.html">Portfolio</a></li>
@@ -75,7 +75,7 @@
 
                             <ul>@if (Context.Session.GetString("TipoConta")=="Admin" || Context.Session.GetString("TipoConta")=="Analista" )
                                 {
-                                    <li><a asp-area="" asp-controller="AdminUsuario" asp-action="Edit" asp-route-id=@Context.Session.GetInt32("Id") class="@ViewData["Index"]">Dados Cadastrais</a></li>
+                                    <li><a asp-area="" asp-controller="Admin" asp-action="Edit" asp-route-id=@Context.Session.GetInt32("Id") class="@ViewData["Index"]">Dados Cadastrais</a></li>
                                 }
                                         else
                                         {
@@ -142,21 +142,21 @@
                         <h4>Links Úteis</h4>
                         <ul>
                             <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Sobre</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Destinos</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Login</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Contato</a></li>
                         </ul>
                     </div>
 
                     <div class="col-lg-3 col-md-6 footer-links">
                         <h4>Nossos Serviços</h4>
                         <ul>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Assessoria Pré-venda</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Assessoria Pós-venda</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Jurídico</a></li>
                             <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Privacidade dos Dados</a></li>
                         </ul>
                     </div>
 

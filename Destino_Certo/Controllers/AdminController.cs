@@ -14,13 +14,13 @@ using System.Text.RegularExpressions;
 using System.Globalization;
 namespace Destino_Certo.Controllers
 {
-    public class AdminUsuarioController : Controller
+    public class AdminController : Controller
     {
         private readonly Context _context;
         private readonly IMapper _mapper;
        
 
-        public AdminUsuarioController(Context context, IMapper mapper, ICrypto crypto)
+        public AdminController(Context context, IMapper mapper, ICrypto crypto)
         {
             _context = context;
             _mapper = mapper;
