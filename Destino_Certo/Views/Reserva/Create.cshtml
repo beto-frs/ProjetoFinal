@@ -1,0 +1,129 @@
+﻿@model Destino_Certo.Models.ReservaModel
+
+@{
+    Layout = "~/Views/Shared/_Details.cshtml";
+    ViewData["Destinos"] = "active";
+    ViewData["Title"] = "Create";
+}
+
+<section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+            <h2>Reserva</h2>
+            <ol>
+                <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                <li><a asp-area="" asp-controller="Destino" asp-action="Locais">Destinos</a></li>
+                <li>Reserva</li>
+            </ol>
+        </div>
+
+    </div>
+</section><!-- End Breadcrumbs -->
+
+    <section id="blog" class="blog">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row">
+
+          <div class="col-lg-8 entries">
+
+            <article class="entry">
+
+              <div class="entry-img">
+                <img src="assets/img/blog/blog-1.jpg" alt="" class="img-fluid">
+              </div>
+
+              <h2 class="entry-title">
+                <span href="blog-single.html">Dolorum optio tempore voluptas dignissimos cumque fuga qui quibusdam quia</span>
+              </h2>
+
+              <div class="entry-meta">
+                <ul>
+                  <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-single.html">John Doe</a></li>
+                  <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-single.html"><time datetime="2020-01-01">Jan 1, 2020</time></a></li>
+                  <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-single.html">12 Comments</a></li>
+                </ul>
+              </div>
+
+              <div class="entry-content">
+                <p>
+                  Similique neque nam consequuntur ad non maxime aliquam quas. Quibusdam animi praesentium. Aliquam et laboriosam eius aut nostrum quidem aliquid dicta.
+                  Et eveniet enim. Qui velit est ea dolorem doloremque deleniti aperiam unde soluta. Est cum et quod quos aut ut et sit sunt. Voluptate porro consequatur assumenda perferendis dolore.
+                </p>
+                <div class="read-more">
+                  <a href="blog-single.html">Read More</a>
+                </div>
+              </div>
+
+            </article>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+<h1>Create</h1>
+
+<h4>ReservaModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="PessoaId" class="control-label"></label>
+                <select asp-for="PessoaId" class ="form-control" asp-items="ViewBag.PessoaId" disabled></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataViagem" class="control-label"></label>
+                <input asp-for="DataViagem" class="form-control" type="date"/>
+                <span asp-validation-for="DataViagem" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pacote" class="control-label"></label>
+                <input asp-for="Pacote" class="form-control" />
+                <span asp-validation-for="Pacote" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DestinoId" class="control-label"></label>
+                <select asp-for="DestinoId" class ="form-control" asp-items="ViewBag.DestinoId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="AtendimentoId" class="control-label"></label>
+                <input asp-for="AtendimentoId" class="form-control" />
+                <span asp-validation-for="AtendimentoId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NomeAnalista" class="control-label"></label>
+                <input asp-for="NomeAnalista" class="form-control" />
+                <span asp-validation-for="NomeAnalista" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsConfirmed" class="control-label"></label>
+                <input asp-for="IsConfirmed" class="form-control" />
+                <span asp-validation-for="IsConfirmed" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FormaPagamento" class="control-label"></label>
+                <input asp-for="FormaPagamento" class="form-control" />
+                <span asp-validation-for="FormaPagamento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

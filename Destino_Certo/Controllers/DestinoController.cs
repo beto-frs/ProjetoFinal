@@ -91,7 +91,11 @@ namespace Destino_Certo.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Local,Imagem,Descricao,Incluso")] CreateDestinoDto destinoModel, IFormFile formFile)
         {
-            
+            if (formFile == null)
+            {
+                ViewBag.Mensagem = "Imagem não localizada";
+                return View(destinoModel);
+            }
             var memoryStream = new MemoryStream();
             await formFile.CopyToAsync(memoryStream);
 

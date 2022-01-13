@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<Destino_Certo.Models.DestinoModel>
 
 @{
+    Layout = "~/Views/Shared/_DestinoCerto.cshtml";
     ViewData["Destinos"] = "active";
     List<string> imagens = new List<string>();
     foreach (var items in Model)
@@ -34,18 +35,26 @@
              @foreach (var item in Model)
             {
 
-            <div class="col-lg-4 col-md-6 portfolio-item">
+            <div class="col-lg-4 col-md-4 portfolio-item">
                 <div class="portfolio-wrap">
                     <img src="@Html.DisplayFor(modelItem => item.ExtensaoArquivo)" class="img-fluid" alt="">
                     <div class="portfolio-info">
                         <h4>@Html.DisplayFor(modelItem => item.Local)</h4>
                         <!-- <p>@Html.DisplayFor(modelItem => item.Local)</p>-->
                         <div class="portfolio-links">
-                            <a asp-action="Details" asp-route-id="@item?.Id" data-gallery="portfolioGallery" class="portfolio-lightbox"><i class="bx bx-plus" style="font-size: 18px" title="@Html.DisplayFor(modelItem => item.Local)">Detalhes</i></a>
-                            <a asp-action="Details" asp-route-id="@item?.Id" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a>
+                            <a asp-action="Details" asp-route-id="@item?.Id" data-gallery="portfolioGallery" class="portfolio-details-lightbox" data-glightbox="type: external"><i class="bx bx-plus" style="font-size: 18px" title="@Html.DisplayFor(modelItem => item.Local)">Detalhes</i></a>
+                            
+                            <!--<a asp-action="Details" asp-route-id="@item?.Id" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a>
+                            <a asp-action="Details" asp-route-id="@item?.Id" data-gallery="portfolioGallery" class="portfolio-lightbox"><i class="bx bx-plus" style="font-size: 18px" title="@Html.DisplayFor(modelItem => item.Local)">Detalhes</i></a>-->
                         </div>
-                    </div>
+                            @if (Context.Session.GetString("Nome") != null)
+                            {
+                                <a asp-action="Delete" asp-route-id="@item?.Id" class="btn btn-danger btn-sm">Reserva</a>
+                            }
+                        </div>
                 </div>
+
+                
             </div>
 
              }

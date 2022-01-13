@@ -5,6 +5,13 @@ using Destino_Certo.SendEmail;
 using Destino_Certo.Data;
 using Destino_Certo.Models.ADONET;
 using Destino_Certo.Crypto;
+using System.Text.Json;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using System.Text;
+
+using Newtonsoft.Json;
 
 namespace Destino_Certo.Controllers
 {
@@ -84,6 +91,42 @@ namespace Destino_Certo.Controllers
         public ActionResult About()
         {
             return View();
+        }
+
+        public async Task<IActionResult> Previsao()
+        {
+            string teste = "São-Paulo";
+            TempResponse tempResponse = new();
+            var client = new HttpClient();
+
+            var request = new HttpRequestMessage();
+            request.RequestUri = new Uri($"https://data.metsul.com/api/v1/previsao/10dias/quadro_novo/{teste}");
+            request.Method = HttpMethod.Get;
+
+            request.Headers.Add("Accept", "*/*");
+            request.Headers.Add("User-Agent", "Thunder Client (https://www.thunderclient.io)");
+            
+
+
+            var response = await client.SendAsync(request);
+            var json = await response.Content.ReadAsStringAsync();
+
+
+
+            tempResponse = JsonConvert.DeserializeObject<TempResponse>(json);
+
+
+            var resultSerial = JsonConvert.DeserializeObject<TempResponse>(json);
+
+
+
+            tempResponse = await client.GetFromJsonAsync<TempResponse>(json);
+            
+            
+
+
+            return RedirectToAction("Index");
+         
         }
         
     }

@@ -1,84 +1,73 @@
 ﻿@model Destino_Certo.Models.DestinoModel
 
 @{
-    ViewData["Title"] = "Details";
+   
     Layout = "~/Views/Shared/_Details.cshtml";
+    ViewData["Destinos"] = "active";
+
+    string Base64 = Convert.ToBase64String(Model.ArrayImagem);
+    string img = String.Format("data:image/jpeg;base64,{0}", Base64);
+    var imagem = img;
+    string[] DescricaoS = Model.Descricao.Split(";");
+    string[] InclusoS = Model.Incluso.Split(";");
+
 }
 
-<h1>Details</h1>
 
-<div>
-    <h4>DestinoModel</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Local)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Local)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ArrayImagem)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ArrayImagem)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Descricao)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Descricao)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Incluso)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Incluso)
-        </dd>
-    </dl>
-</div>
-<div>
-   
-</div>
-    <section id="portfolio-details" class="portfolio-details">
-      <div class="container">
+<section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
 
-        <div class="row gy-4">
-
-          <div class="col-lg-8">
-            <div class="portfolio-details-slider swiper">
-              <div class="swiper-wrapper align-items-center">
-
-                <div class="swiper-slide">
-                  <img src="assets/img/portfolio/portfolio-details-3.jpg" alt="">
-                </div>
-
-              </div>
-              <div class="swiper-pagination"></div>
-            </div>
-          </div>
-
-          <div class="col-lg-4">
-            <div class="portfolio-info">
-              <h3>Project information</h3>
-              <ul>
-                <li><strong>Category</strong>: Web design</li>
-                <li><strong>Client</strong>: ASU Company</li>
-                <li><strong>Project date</strong>: 01 March, 2020</li>
-                <li><strong>Project URL</strong>: <a href="#">www.example.com</a></li>
-              </ul>
-            </div>
-            <div class="portfolio-description">
-              <h2>This is an example of portfolio detail</h2>
-              <p>
-                Autem ipsum nam porro corporis rerum. Quis eos dolorem eos itaque inventore commodi labore quia quia. Exercitationem repudiandae officiis neque suscipit non officia eaque itaque enim. Voluptatem officia accusantium nesciunt est omnis tempora consectetur dignissimos. Sequi nulla at esse enim cum deserunt eius.
-              </p>
-            </div>
-          </div>
-
+        <div class="d-flex justify-content-between align-items-center">
+            <h2>Destinos</h2>
+            <ol>
+                <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                <li><a asp-area="" asp-controller="Destino" asp-action="Locais">Destinos</a></li>
+                <li>Conheça</li>
+            </ol>
         </div>
 
-      </div>
-       <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-    </section>
+    </div>
+</section><!-- End Breadcrumbs -->
+<section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+            <h2>@Html.DisplayFor(model => model.Local)</h2>
+        </div>
+
+    </div>
+</section>
+<section id="blog" class="blog">
+    <div class="container" data-aos="fade-up">
+        <div class="row">
+            <div class="col-lg-12 entries col align-self-center">
+                <article class="entry">
+                    <div class="entry-img row">
+                        <img src="@img" class="img-fluid col align-self-center" alt="">   
+                    </div>
+                    <h2 class="entry-title">Detalhes</h2>
+
+                    <div class="entry-content">
+                        @foreach (var item in DescricaoS)
+                        {
+                            <p>@item </p>
+                        }
+                        <h2 class="entry-title">Incluso</h2>
+                        <p>
+                        @foreach (var item in InclusoS)
+                        
+                        {
+                            @item <br>
+                        }
+                        </p>
+                        
+                        <div class="read-more">
+                            <!-- <a href="blog-single.html" data-glightbox="type: external">Reserve Já</a>-->
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+

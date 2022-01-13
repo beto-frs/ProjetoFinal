@@ -25,6 +25,8 @@ namespace Destino_Certo.Models
         public byte[] ArrayImagem { get; set; }
 
         public string InfoArquivo { get; set; }
+
+        public string? CidadeEstado { get; set; }
         
 
         
